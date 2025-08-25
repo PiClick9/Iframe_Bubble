@@ -19,58 +19,63 @@
         font-family: Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
           'Noto Sans KR', sans-serif;
       }
+
       .in-image-bg {
         position: absolute;
         bottom: 0;
         width: 100%;
         height: 63px;
-        background-color: #5f9728;
+        background-color: #ffe882;
         z-index: 5;
         transform: translateY(100%);
         transition: transform 0.6s ease, opacity 0.6s ease;
         opacity: 0;
       }
+      .in-image-bg.visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
       .in-image-ad {
         position: absolute;
         left: 50%;
         bottom: 0;
         transform: translateX(-50%) translateY(100%);
-        width: 600px;
-        max-width: 100%;
+        width: 404px;
+        max-width: 404px;
         height: 80px;
         display: flex;
         align-items: center;
-        background: linear-gradient(to right, #f7ffef 0%, #e6edde 80%, #c1c9b1 100%);
+        background: #fffcef;
         opacity: 0;
         z-index: 10;
         transition: transform 0.6s ease, opacity 0.6s ease;
         overflow: visible;
         cursor: pointer;
       }
-      .in-image-bg.visible {
-        transform: translateY(0);
-        opacity: 1;
-      }
       .in-image-ad.visible {
         transform: translateX(-50%) translateY(0);
         opacity: 1;
       }
+
       .ad-content {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
         height: 100%;
-        padding: 0 36px;
+        padding: 0 15px;
         gap: 40px;
         position: relative;
       }
+
       .ad-logo {
         width: 69px;
         height: 52px;
         object-fit: contain;
         transition: transform 0.6s ease;
       }
+
       .ad-products {
         display: flex;
         align-items: center;
@@ -78,19 +83,19 @@
         transition: transform 0.6s ease;
       }
       .product-image-wrapper {
-        width: 222px;
+        width: 150px;
         height: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: end;
         align-items: flex-end;
         overflow: visible;
         position: relative;
         border-radius: 10px;
       }
       .product-image {
-        width: 100%;
-        height: 80%;
-        object-fit: cover;
+        width: 90px;
+        height: 90%;
+        object-fit: contain;
       }
       .product-image-hover {
         position: absolute;
@@ -106,6 +111,7 @@
       .in-image-ad:hover .product-image-hover {
         opacity: 1;
       }
+
       .ad-text {
         position: absolute;
         left: 50%;
@@ -116,29 +122,30 @@
         text-align: center;
         font-weight: bold;
         font-size: 20px;
-        color: #094d4d;
+        color: #000;
         white-space: nowrap;
         pointer-events: none;
       }
       .ad-line1 {
         font-size: 14px;
-        color: #094d4d;
+        color: #000;
       }
       .ad-line2 {
         font-size: 20px;
         font-weight: bold;
-        color: #000;
+        color: #ffae00;
       }
       .font-g {
-        color: #094d4d;
+        color: #ffae00;
         font-weight: 800;
         font-size: 24px;
       }
       .font-r {
-        color: #ff280b;
+        color: #ffae00;
         font-weight: 800;
         font-size: 24px;
       }
+
       .bubble {
         position: absolute;
         bottom: 10px;
@@ -158,6 +165,7 @@
           opacity: 0;
         }
       }
+
       .move-left {
         animation: moveLeft 0.6s ease forwards;
         position: absolute;
@@ -172,7 +180,7 @@
           transform: translateX(-100%);
         }
         100% {
-          left: 40px;
+          left: 20px;
           transform: none;
         }
       }
@@ -186,6 +194,7 @@
           transform: none;
         }
       }
+
       @media (max-width: 600px) {
         .in-image-ad {
           height: 80px;
@@ -197,14 +206,19 @@
     <div class="in-image-bg" id="inImageBg"></div>
     <div class="in-image-ad" id="inImageAd" role="button" aria-label="광고 배너">
       <div class="ad-content">
-        <img class="ad-logo" id="adLogo" alt="브랜드 로고" />
+        <img class="ad-logo" id="adLogo" alt="브랜드 로고" decoding="async" />
         <div class="ad-products" id="adProduct">
           <span class="product-image-wrapper" id="prodWrap">
-            <img class="product-image" id="prodBase" alt="제품 이미지" />
-            <img class="product-image-hover" id="prodHover" alt="제품 이미지(호버)" />
+            <img class="product-image" id="prodBase" alt="제품 이미지" decoding="async" />
+            <img
+              class="product-image-hover"
+              id="prodHover"
+              alt="제품 이미지(호버)"
+              decoding="async"
+            />
           </span>
         </div>
-        <div class="ad-text" id="adText">명품 BRAND</div>
+        <div class="ad-text" id="adText">시원한 레몬에이드 한 잔!</div>
       </div>
     </div>
 
@@ -212,18 +226,14 @@
       (function () {
         const qs = new URLSearchParams(location.search);
         const params = {
-          logo: qs.get('logo') || 'https://www.maeil.com/resources/images/common/h_logo.png',
-          product:
-            qs.get('product') ||
-            'https://s3.ap-northeast-2.amazonaws.com/piclick.me.img/test/nukki.png',
-          hover:
-            qs.get('hover') ||
-            'https://s3.ap-northeast-2.amazonaws.com/piclick.me.img/test/jar.png',
+          logo: qs.get('logo') || './logo.png',
+          product: qs.get('product') || './lemon.png  ',
+          hover: qs.get('hover') || './bottle.png',
 
-          brand: qs.get('brand') || '명품 BRAND',
-          line1: qs.get('line1') || '프리미엄',
-          line2: qs.get('line2') || '고농축 토마토 주스',
-          bg: qs.get('bg') || '#5F9728',
+          brand: qs.get('brand') || '프리미엄 레몬으로 만든',
+          line1: qs.get('line1') || '상큼 달달한',
+          line2: qs.get('line2') || '레몬에이드',
+          bg: qs.get('bg') || '#FFE882',
           autohide: parseInt(qs.get('autohide') || '0', 10) || 0,
           imp: qs.get('imp') || '',
           click: qs.get('click') || '',
@@ -262,7 +272,12 @@
         adLogo.src = params.logo;
         prodBase.src = params.product;
         prodHover.src = params.hover;
-        adText.textContent = params.brand;
+
+        // 이미지 로드 실패 시 대체(투명 1x1)
+        const Fallback = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
+        adLogo.onerror = () => (adLogo.src = Fallback);
+        prodBase.onerror = () => (prodBase.src = Fallback);
+        prodHover.onerror = () => (prodHover.src = Fallback);
 
         // 배너 본체 배경 적용
         (function applyAdBackground() {
@@ -273,9 +288,7 @@
             const s = params.adBgStart || '#f7ffef';
             const e = params.adBgEnd || '#c1c9b1';
             inImageAd.style.background = `linear-gradient(to right, ${s} 0%, ${s} 10%, ${e} 100%)`;
-          } else {
-            // 기본 CSS 배경 유지
-          }
+          } // else 기본 CSS 유지
         })();
 
         // 크기/맞춤 적용
@@ -308,26 +321,11 @@
           });
         }
 
-        // 애니메이션
-        window.addEventListener('load', () => {
-          inImageAd.classList.add('visible');
-          inImageBg.classList.add('visible');
-          setTimeout(() => {
-            adLogo.classList.add('move-left');
-            adProduct.classList.add('move-right');
-            setTimeout(() => {
-              requestAnimationFrame(() => {
-                adText.style.opacity = '1';
-                adText.style.transform = 'scale(1)';
-              });
-            }, 400);
-          }, 600);
-          startDefaultBubbles();
-        });
-
+        // 버블 애니메이션
         let defaultBubbleInterval = null,
           hoverBubbleInterval = null;
         function startDefaultBubbles() {
+          if (defaultBubbleInterval) return;
           defaultBubbleInterval = setInterval(() => {
             for (let i = 0; i < 3; i++) {
               const b = document.createElement('span');
@@ -345,11 +343,11 @@
         }
 
         inImageAd.addEventListener('mouseenter', () => {
-          adText.innerHTML = `
-            <div class="ad-line1">${escapeHtml(params.brand)}</div>
-            <div class="ad-line2"><span class="font-g">${escapeHtml(params.line1)}</span>
-            <span class="font-r">${escapeHtml(params.line2)}</span></div>`;
+          adText.innerHTML = `<div class="ad-line1">${escapeHtml(params.brand)}</div>
+             <div class="ad-line2"><span class="font-g">${escapeHtml(params.line1)}</span>
+             <span class="font-r">${escapeHtml(params.line2)}</span></div>`;
           stopDefaultBubbles();
+          if (hoverBubbleInterval) clearInterval(hoverBubbleInterval);
           hoverBubbleInterval = setInterval(() => {
             for (let i = 0; i < 5; i++) {
               const b = document.createElement('span');
@@ -361,9 +359,11 @@
             }
           }, 500);
         });
+
         inImageAd.addEventListener('mouseleave', () => {
           adText.textContent = params.brand;
           if (hoverBubbleInterval) clearInterval(hoverBubbleInterval);
+          hoverBubbleInterval = null;
           startDefaultBubbles();
         });
 
@@ -375,6 +375,38 @@
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
         }
+
+        // ----- 핵심: DOM 준비 즉시 표시 (이미지 로드와 무관) -----
+        function showBanner() {
+          inImageAd.classList.add('visible');
+          inImageBg.classList.add('visible');
+
+          // 초기 분리 모션 + 텍스트 페이드인
+          setTimeout(() => {
+            adLogo.classList.add('move-left');
+            adProduct.classList.add('move-right');
+            setTimeout(() => {
+              requestAnimationFrame(() => {
+                adText.style.opacity = '1';
+                adText.style.transform = 'scale(1)';
+              });
+            }, 400);
+          }, 600);
+
+          startDefaultBubbles();
+        }
+
+        // DOMContentLoaded 기준으로 즉시 실행
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(showBanner));
+        } else {
+          requestAnimationFrame(showBanner);
+        }
+
+        // 최후 보루: 1초 뒤에도 안 떴으면 강제 표시
+        setTimeout(() => {
+          if (!inImageAd.classList.contains('visible')) showBanner();
+        }, 1000);
       })();
     </script>
   </body>
