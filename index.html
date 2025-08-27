@@ -125,19 +125,19 @@
         transition: opacity 0.6s ease, transform 0.6s ease;
         text-align: center;
         font-weight: 700;
-        font-size: 13.47px;
+        font-size: 16px;
         color: #000;
         white-space: nowrap;
         pointer-events: none;
         z-index: 60; /* 최상단 */
       }
       .ad-line1 {
-        font-size: 8px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 400;
       }
       .ad-line2 {
-        font-size: 14px;
-        font-weight: 800;
+        font-size: 17px;
+        font-weight: 700;
       }
       .font-g {
         font-weight: 800;
@@ -154,10 +154,10 @@
         left: 50%;
         top: calc(50% + 5px);
         transform: translateX(-50%);
-        padding: 8px 14px;
+        padding: 6px 10px;
         border: 0;
         border-radius: 999px;
-        font-size: 14px;
+        font-size: 11px;
         font-weight: 700;
         line-height: 1;
         opacity: 1;
@@ -294,8 +294,8 @@
           lineClolor1: qs.get('lineClolor1') || '#000',
           lineClolor2: qs.get('lineClolor2') || '#ffae00',
           ctaText: qs.get('ctaText') || '구매하기',
-          ctaBg: qs.get('ctaBg') || '{BUTTON_BACKGROUND_COLOR}',
-          ctaColor: qs.get('ctaColor') || '{BUTTON_TEXT_COLOR}',
+          ctaBg: qs.get('ctaBg') || '#ffae00',
+          ctaColor: qs.get('ctaColor') || '#fff',
           cta: qs.get('cta') || '{CLICK_URL}', // 버튼 전용 이동
           click: qs.get('click') || '{CLICK_URL}', // 배너 전체 클릭
           bg: qs.get('bg') || '#ffe882',
