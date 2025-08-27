@@ -393,6 +393,7 @@
           const l2 = document.getElementById('line2');
           if (l1) l1.style.color = params.lineClolor1;
           if (l2) l2.style.color = params.lineClolor2;
+          adText.style.top = '50%';
 
           stopDefaultBubbles();
           if (hoverBubbleInterval) clearInterval(hoverBubbleInterval);
@@ -411,6 +412,7 @@
         // 호버 해제: 브랜드명 복귀 + 버블 기본 모드
         inImageAd.addEventListener('mouseleave', () => {
           adText.textContent = `${escapeHtml(params.brand)}`;
+          adText.style.removeProperty('top');
           if (hoverBubbleInterval) clearInterval(hoverBubbleInterval);
           hoverBubbleInterval = null;
           startDefaultBubbles();
